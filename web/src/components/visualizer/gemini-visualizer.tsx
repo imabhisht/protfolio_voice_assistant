@@ -1,8 +1,6 @@
 "use client";
 
-import { GeminiMark } from "@/components/visualizer/gemini-mark";
-import Logo from "@/assets/gemini.svg";
-import Orb from './Orb';
+import Orb from "@/components/visualizer/Orb";
 
 import {
   AgentState,
@@ -27,7 +25,16 @@ export function GeminiVisualizer({
         perspective: "1000px",
       }}
     >
-      <GeminiMark volume={agentVolume} state={agentState} />
+      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+        <Orb
+          hoverIntensity={0.5}
+          rotateOnHover={true}
+          hue={0} // Default hue
+          forceHoverState={false}
+          volume={agentVolume}
+          state={agentState}
+        />
+      </div>
       <Shadow volume={agentVolume} state={agentState} />
     </div>
   );
