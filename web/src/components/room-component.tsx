@@ -133,22 +133,24 @@ export function RoomComponent() {
                 }
               `}>
                 {/* Main Content Header */}
-                <div className={`px-6 py-4 flex-shrink-0 transition-all duration-500 ease-in-out ${sidebarOpen ? 'border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent' : ''}`}>
-                  <div className="flex items-center justify-between">
-                    <div className="min-w-0">
-                      <h1 className="text-xl font-semibold text-white tracking-tight truncate">
-                        Voice Assistant
-                      </h1>
-                      <p className="text-sm text-neutral-400 mt-1 truncate">
-                        Multimodal AI conversation interface
-                      </p>
-                    </div>
-                    <div className="flex items-center space-x-2 flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                      <span className="text-xs text-neutral-400">Live</span>
+                {sidebarOpen && (
+                  <div className={`px-6 py-4 flex-shrink-0 transition-all duration-500 ease-in-out border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent`}>
+                    <div className="flex items-center justify-between">
+                      <div className="min-w-0">
+                        <h1 className="text-xl font-semibold text-white tracking-tight truncate">
+                          Voice Assistant
+                        </h1>
+                        <p className="text-sm text-neutral-400 mt-1 truncate">
+                          Multimodal AI conversation interface
+                        </p>
+                      </div>
+                      <div className="flex items-center space-x-2 flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span className="text-xs text-neutral-400">Live</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
                 
                 {/* Chat Container */}
                 <div className="flex-1 overflow-hidden min-h-0">

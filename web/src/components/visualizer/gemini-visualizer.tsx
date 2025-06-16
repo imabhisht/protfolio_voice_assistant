@@ -1,7 +1,10 @@
 "use client";
 
 import Orb from "@/components/visualizer/Orb";
-import FuzzyText from '@/components/visualizer/FuzzyText';
+import { useConnection } from "@/hooks/use-connection";
+import { usePlaygroundState } from "@/hooks/use-playground-state";
+import { AuthDialog } from "@/components/auth";
+import { useState, useCallback } from "react";
 
 import {
   AgentState,
@@ -19,6 +22,40 @@ export function GeminiVisualizer({
   agentState,
 }: GeminiVisualizerProps) {
   const agentVolume = useTrackVolume(agentTrackRef);
+  const { connect, shouldConnect } = useConnection();
+  const { pgState } = usePlaygroundState();
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [connecting, setConnecting] = useState(false);
+
+  const handleOrbClick = useCallback(async () => {
+    // Only allow starting conversation, not stopping
+    if (shouldConnect || agentState === "listening" || agentState === "thinking" || agentState === "speaking" || connecting) {
+      return;
+    }
+
+    if (!pgState.geminiAPIKey) {
+      setShowAuthDialog(true);
+    } else {
+      setConnecting(true);
+      try {
+        await connect();
+      } catch (error) {
+        console.error("Connection failed:", error);
+      } finally {
+        setConnecting(false);
+      }
+    }
+  }, [shouldConnect, agentState, pgState.geminiAPIKey, connect, connecting]);
+
+  const handleAuthComplete = useCallback(() => {
+    setShowAuthDialog(false);
+    if (pgState.geminiAPIKey) {
+      handleOrbClick();
+    }
+  }, [pgState.geminiAPIKey, handleOrbClick]);
+
+  // Allow clicking when not connected and not in an active state
+  const isClickable = !shouldConnect && agentState !== "listening" && agentState !== "thinking" && agentState !== "speaking" && !connecting;
   return (
     <div
       className="flex h-full w-full items-center justify-center relative"
@@ -37,11 +74,15 @@ export function GeminiVisualizer({
       >
         {/* Orb container - perfectly centered */}
         <div 
-          className="absolute inset-0 flex items-center justify-center"
+          className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${
+            isClickable ? 'cursor-pointer hover:scale-105' : 'cursor-default'
+          }`}
           style={{
             width: '100%',
             height: '100%',
           }}
+          onClick={isClickable ? handleOrbClick : undefined}
+          title={isClickable ? "Click to start conversation" : undefined}
         >
           <Orb
             hoverIntensity={0.5}
@@ -52,39 +93,13 @@ export function GeminiVisualizer({
             state={agentState}
           />
         </div>
-        
-        {/* FuzzyText overlay in the center */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          style={{
-            zIndex: 10,
-          }}
-        >
-          <div 
-            className="pointer-events-auto text-center"
-            style={{
-              // Scale with volume for better integration
-              transform: `scale(${agentState === "disconnected" ? 0.8 : 1 + agentVolume * 0.1})`,
-              transition: 'transform 0.15s ease-out',
-              // Adjust opacity based on state
-              opacity: agentState === "disconnected" ? 0.3 : 1,
-            }}
-          >
-            <FuzzyText 
-              baseIntensity={0.26} 
-              hoverIntensity={0.56} 
-              enableHover={true}
-              fontSize="3rem"
-              fontWeight={700}
-              color="#ffffff"
-              fontFamily="font-mono"
-            >
-              Voice Assistant
-            </FuzzyText>
-          </div>
-        </div>
       </div>
-      <Shadow volume={agentVolume} state={agentState} />
+      
+      <AuthDialog
+        open={showAuthDialog}
+        onOpenChange={setShowAuthDialog}
+        onAuthComplete={handleAuthComplete}
+      />
     </div>
   );
 }
