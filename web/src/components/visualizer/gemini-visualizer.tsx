@@ -2,6 +2,7 @@
 
 import { GeminiMark } from "@/components/visualizer/gemini-mark";
 import Logo from "@/assets/gemini.svg";
+import Orb from './Orb';
 
 import {
   AgentState,
