@@ -25,6 +25,7 @@ const config: Config = {
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
         mono: ["Commit Mono", "monospace"],
+        ceesHand: ["Cee's Hand Bold Italic", "cursive"],
       },
     },
   },

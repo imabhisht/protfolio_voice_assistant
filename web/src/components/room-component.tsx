@@ -23,7 +23,7 @@ export function RoomComponent() {
       token={token}
       connect={shouldConnect}
       audio={true}
-      className="flex h-full w-full overflow-hidden bg-neutral-900"
+      className="flex h-full w-full overflow-hidden bg-black"
       options={{
         publishDefaults: {
           stopMicTrackOnMute: true,
@@ -55,7 +55,7 @@ export function RoomComponent() {
                   <h2 className="text-lg font-semibold text-white tracking-tight truncate">
                     Configuration
                   </h2>
-                  <p className="text-xs text-neutral-400 truncate">Voice Assistant Settings</p>
+                  <p className="text-xs text-neutral-400 truncate">Advanced Voice Assistant Settings</p>
                 </div>
               </div>
               
@@ -123,18 +123,17 @@ export function RoomComponent() {
 
           {/* Main Content Area - Takes remaining space */}
           <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
-            <div className="flex-1 flex flex-col h-full p-4 pl-6 min-w-0">
-              <div className="
-                w-full h-full flex flex-col min-w-0
-                rounded-2xl
-                bg-gradient-to-br from-neutral-950 via-neutral-950 to-neutral-900
-                border border-neutral-700/50
-                shadow-2xl shadow-black/20
-                backdrop-blur-xl
-                overflow-hidden
-              ">
+            <div className={`flex-1 flex flex-col h-full transition-all duration-500 ease-in-out ${sidebarOpen ? 'p-4 pl-6' : 'p-0'} min-w-0`}>
+              <div className={`
+                w-full h-full flex flex-col min-w-0 overflow-hidden
+                transition-all duration-500 ease-in-out
+                ${sidebarOpen 
+                  ? 'rounded-2xl bg-gradient-to-br from-neutral-950 via-neutral-950 to-neutral-900 border border-neutral-700/50 shadow-2xl shadow-black/20 backdrop-blur-xl' 
+                  : 'bg-black'
+                }
+              `}>
                 {/* Main Content Header */}
-                <div className="px-6 py-4 border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent flex-shrink-0">
+                <div className={`px-6 py-4 flex-shrink-0 transition-all duration-500 ease-in-out ${sidebarOpen ? 'border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent' : ''}`}>
                   <div className="flex items-center justify-between">
                     <div className="min-w-0">
                       <h1 className="text-xl font-semibold text-white tracking-tight truncate">

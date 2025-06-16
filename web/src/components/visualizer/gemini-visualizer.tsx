@@ -1,6 +1,7 @@
 "use client";
 
 import Orb from "@/components/visualizer/Orb";
+import FuzzyText from '@/components/visualizer/FuzzyText';
 
 import {
   AgentState,
@@ -34,6 +35,37 @@ export function GeminiVisualizer({
           volume={agentVolume}
           state={agentState}
         />
+        
+        {/* FuzzyText overlay in the center */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          style={{
+            zIndex: 10,
+          }}
+        >
+          <div 
+            className="pointer-events-auto"
+            style={{
+              // Scale with volume for better integration
+              transform: `scale(${agentState === "disconnected" ? 0.8 : 1 + agentVolume * 0.1})`,
+              transition: 'transform 0.15s ease-out',
+              // Adjust opacity based on state
+              opacity: agentState === "disconnected" ? 0.3 : 1,
+            }}
+          >
+            <FuzzyText 
+              baseIntensity={0.26} 
+              hoverIntensity={0.56} 
+              enableHover={true}
+              fontSize="3rem"
+              fontWeight={700}
+              color="#ffffff"
+              fontFamily="font-mono"
+            >
+              Voice Assistant
+            </FuzzyText>
+          </div>
+        </div>
       </div>
       <Shadow volume={agentVolume} state={agentState} />
     </div>

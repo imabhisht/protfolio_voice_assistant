@@ -13,6 +13,10 @@
   .text-balance {
     text-wrap: balance;
   }
+  
+  .font-cees-hand {
+    font-family: "Cee's Hand Bold Italic", cursive;
+  }
 }
 
 @layer base {
@@ -56,6 +60,16 @@ html {
   src: url("/fonts/CommitMono-700-Regular.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
+}
+
+@font-face {
+    font-family: "Cee's Hand Bold Italic";
+    src: url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.eot");
+    src: url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/12ac7a57242b1a2133710e2aa58dda62.svg#Cee's Hand Bold Italic")format("svg");
 }
 
 .custom-scrollbar {
