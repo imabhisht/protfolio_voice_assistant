@@ -21,7 +21,7 @@ from livekit.agents import (
 from livekit.agents.multimodal import MultimodalAgent
 from livekit.plugins.google import beta as google
 
-load_dotenv(dotenv_path=".env.local")
+load_dotenv(dotenv_path=".env")
 
 logger = logging.getLogger("gemini-playground")
 logger.setLevel(logging.INFO)
