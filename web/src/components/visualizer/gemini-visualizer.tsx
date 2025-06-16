@@ -26,15 +26,32 @@ export function GeminiVisualizer({
         perspective: "1000px",
       }}
     >
-      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
-        <Orb
-          hoverIntensity={0.5}
-          rotateOnHover={true}
-          hue={0} // Default hue
-          forceHoverState={false}
-          volume={agentVolume}
-          state={agentState}
-        />
+      {/* Main container with proper centering */}
+      <div 
+        className="relative flex items-center justify-center"
+        style={{ 
+          width: '600px', 
+          height: '600px',
+          margin: '0 auto'
+        }}
+      >
+        {/* Orb container - perfectly centered */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Orb
+            hoverIntensity={0.5}
+            rotateOnHover={true}
+            hue={0} // Default hue
+            forceHoverState={false}
+            volume={agentVolume}
+            state={agentState}
+          />
+        </div>
         
         {/* FuzzyText overlay in the center */}
         <div 
@@ -44,7 +61,7 @@ export function GeminiVisualizer({
           }}
         >
           <div 
-            className="pointer-events-auto"
+            className="pointer-events-auto text-center"
             style={{
               // Scale with volume for better integration
               transform: `scale(${agentState === "disconnected" ? 0.8 : 1 + agentVolume * 0.1})`,
