@@ -15,9 +15,9 @@ export async function generateMetadata({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<Metadata> {
-  let title = "LiveKit | Gemini Multimodal Playground";
+  let title = "AI Voice Assistant | Interactive Multimodal Playground";
   let description =
-    "Speech-to-speech playground for Google's new Gemini Multimodal Live API. Built on LiveKit Agents.";
+    "Interactive speech-to-speech playground with advanced AI voice capabilities and real-time conversation features.";
 
   const presetId = searchParams?.preset;
   if (presetId) {
@@ -25,8 +25,8 @@ export async function generateMetadata({
       (preset) => preset.id === presetId
     );
     if (selectedPreset) {
-      title = `Gemini Multimodal Live Playground`;
-      description = `Speak to a "${selectedPreset.name}" in a speech-to-speech playground for Gemini's new Multimodal Live API. Built on LiveKitAgents.`;
+      title = `AI Voice Assistant Playground`;
+      description = `Speak to a "${selectedPreset.name}" in an interactive speech-to-speech playground with advanced AI capabilities.`;
     }
   }
 
@@ -37,10 +37,10 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
-      url: "https://gemini-playground-xi.vercel.app/",
+      url: "https://ai-voice-assistant-playground.vercel.app/",
       images: [
         {
-          url: "https://gemini-playground-xi.vercel.app/og-image.png",
+          url: "https://ai-voice-assistant-playground.vercel.app/og-image.png",
           width: 1200,
           height: 676,
           type: "image/png",
