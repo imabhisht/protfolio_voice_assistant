@@ -74,12 +74,12 @@ export function GeminiVisualizer({
               width: '80%',
               height: '80%',
               background: `radial-gradient(circle, 
-                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.1 : 0.3 + agentVolume * 0.4}) 0%, 
-                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.08 : 0.25 + agentVolume * 0.35}) 40%, 
-                rgba(16, 20, 153, ${agentState === "disconnected" ? 0.05 : 0.15 + agentVolume * 0.25}) 70%, 
+                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.1 : 0.1 + agentVolume * 0.1}) 0%, 
+                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.08 : 0.08 + agentVolume * 0.08}) 40%, 
+                rgba(16, 20, 153, ${agentState === "disconnected" ? 0.05 : 0.05 + agentVolume * 0.06}) 70%, 
                 transparent 100%)`,
-              filter: `blur(${agentState === "disconnected" ? 20 : 30 + agentVolume * 20}px)`,
-              transform: `scale(${agentState === "disconnected" ? 0.8 : 1 + agentVolume * 0.3})`,
+              filter: `blur(${agentState === "disconnected" ? 20 : 20 + agentVolume * 8}px)`,
+              transform: `scale(${agentState === "disconnected" ? 0.8 : 0.8 + agentVolume * 0.1})`,
             }}
           />
           
@@ -90,11 +90,11 @@ export function GeminiVisualizer({
               width: '120%',
               height: '120%',
               background: `radial-gradient(circle, 
-                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.05 : 0.15 + agentVolume * 0.25}) 0%, 
-                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.03 : 0.12 + agentVolume * 0.2}) 30%, 
+                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.05 : 0.05 + agentVolume * 0.05}) 0%, 
+                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.03 : 0.03 + agentVolume * 0.04}) 30%, 
                 transparent 60%)`,
-              filter: `blur(${agentState === "disconnected" ? 40 : 50 + agentVolume * 30}px)`,
-              transform: `scale(${agentState === "disconnected" ? 0.6 : 0.8 + agentVolume * 0.4})`,
+              filter: `blur(${agentState === "disconnected" ? 40 : 40 + agentVolume * 10}px)`,
+              transform: `scale(${agentState === "disconnected" ? 0.6 : 0.6 + agentVolume * 0.15})`,
             }}
           />
           
@@ -105,11 +105,11 @@ export function GeminiVisualizer({
               width: '160%',
               height: '160%',
               background: `radial-gradient(circle, 
-                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.02 : 0.08 + agentVolume * 0.15}) 0%, 
-                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.01 : 0.06 + agentVolume * 0.12}) 20%, 
+                rgba(156, 67, 254, ${agentState === "disconnected" ? 0.02 : 0.02 + agentVolume * 0.03}) 0%, 
+                rgba(76, 194, 233, ${agentState === "disconnected" ? 0.01 : 0.01 + agentVolume * 0.02}) 20%, 
                 transparent 40%)`,
-              filter: `blur(${agentState === "disconnected" ? 60 : 80 + agentVolume * 40}px)`,
-              transform: `scale(${agentState === "disconnected" ? 0.4 : 0.6 + agentVolume * 0.5})`,
+              filter: `blur(${agentState === "disconnected" ? 60 : 60 + agentVolume * 15}px)`,
+              transform: `scale(${agentState === "disconnected" ? 0.4 : 0.4 + agentVolume * 0.2})`,
             }}
           />
         </div>
