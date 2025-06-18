@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  gemini-agent:
+    build:
+      context: ./agent
+      dockerfile: Dockerfile
+    container_name: gemini-agent
+    restart: unless-stopped
+    volumes:
+      - ./agent:/app
+      - /app/__pycache__  # Exclude pycache from bind mount
+    environment:
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - ./agent/.env
+    ports:
+      - "8888:8888"  # Adjust port if needed
+    networks:
+      - gemini-network
+
+networks:
+  gemini-network:
+    driver: bridge
