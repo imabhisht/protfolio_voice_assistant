@@ -50,12 +50,14 @@ export function GeminiVisualizer({
         perspective: "1000px",
       }}
     >
-      {/* Main container with proper centering */}
+      {/* Main container with proper centering and responsive sizing */}
       <div 
         className="relative flex items-center justify-center"
         style={{ 
-          width: '600px', 
-          height: '600px',
+          width: 'min(400px, 90vw)', 
+          height: 'min(400px, 90vw)',
+          maxWidth: '600px',
+          maxHeight: '600px',
           margin: '0 auto'
         }}
       >

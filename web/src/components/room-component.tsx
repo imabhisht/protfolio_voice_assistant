@@ -32,16 +32,17 @@ export function RoomComponent() {
     >
       <AgentProvider>
         <div className="flex h-full w-full">
-          {/* Professional Industry-Level Sidebar */}
+          {/* Professional Industry-Level Sidebar - Hidden on mobile*/}
           <div
             className={`
+              hidden lg:flex
               flex-shrink-0 h-full transition-all duration-300 ease-in-out
               ${sidebarOpen ? "w-80" : "w-16"}
               bg-gradient-to-b from-neutral-900 via-neutral-900 to-neutral-950
               border-r border-neutral-700/50
               backdrop-blur-xl
               shadow-2xl shadow-black/20
-              flex flex-col
+              flex-col
               relative
             `}
           >
@@ -123,18 +124,18 @@ export function RoomComponent() {
 
           {/* Main Content Area - Takes remaining space */}
           <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
-            <div className={`flex-1 flex flex-col h-full transition-all duration-500 ease-in-out ${sidebarOpen ? 'p-4 pl-6' : 'p-0'} min-w-0`}>
+            <div className={`flex-1 flex flex-col h-full transition-all duration-500 ease-in-out ${sidebarOpen ? 'lg:p-4 lg:pl-6' : 'lg:p-0'} p-0 min-w-0`}>
               <div className={`
                 w-full h-full flex flex-col min-w-0 overflow-hidden
                 transition-all duration-500 ease-in-out
                 ${sidebarOpen 
-                  ? 'rounded-2xl bg-gradient-to-br from-neutral-950 via-neutral-950 to-neutral-900 border border-neutral-700/50 shadow-2xl shadow-black/20 backdrop-blur-xl' 
+                  ? 'lg:rounded-2xl lg:bg-gradient-to-br lg:from-neutral-950 lg:via-neutral-950 lg:to-neutral-900 lg:border lg:border-neutral-700/50 lg:shadow-2xl lg:shadow-black/20 lg:backdrop-blur-xl' 
                   : 'bg-black'
                 }
               `}>
                 {/* Main Content Header */}
                 {sidebarOpen && (
-                  <div className={`px-6 py-4 flex-shrink-0 transition-all duration-500 ease-in-out border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent`}>
+                  <div className={`hidden lg:block px-6 py-4 flex-shrink-0 transition-all duration-500 ease-in-out border-b border-neutral-700/50 bg-gradient-to-r from-neutral-800/20 to-transparent`}>
                     <div className="flex items-center justify-between">
                       <div className="min-w-0">
                         <h1 className="text-xl font-semibold text-white tracking-tight truncate">
