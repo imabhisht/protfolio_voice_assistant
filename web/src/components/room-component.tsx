@@ -15,7 +15,7 @@ import { AgentProvider } from "@/hooks/use-agent";
 
 export function RoomComponent() {
   const { shouldConnect, wsUrl, token } = useConnection();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <LiveKitRoom

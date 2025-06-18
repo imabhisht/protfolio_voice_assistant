@@ -54,7 +54,7 @@ export default function Dashboard() {
       </main>
       <footer className="hidden md:flex md:items-center md:gap-2 md:justify-end font-mono uppercase text-right py-3 px-8 text-xs text-neutral-600 w-full md:mx-auto">
         Built with
-        <Heart />
+        <Heart className='text-red-500' />
         By
         <a
           href="https://linkedin.com/in/imabhisht/"
