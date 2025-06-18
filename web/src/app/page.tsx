@@ -1,23 +1,18 @@
 import { Metadata } from "next";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { RoomComponent } from "@/components/room-component";
-import LK from "@/components/lk";
-import Gemini from "@/components/gemini";
 import Heart from "@/assets/heart.svg";
 import { defaultPresets } from "@/data/presets";
-import { CodeViewer } from "@/components/code-viewer";
-import { PresetSave } from "@/components/preset-save";
-import { PresetSelector } from "@/components/preset-selector";
-import { PresetShare } from "@/components/preset-share";
+
 
 export async function generateMetadata({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<Metadata> {
-  let title = "AI Voice Assistant | Interactive Multimodal Playground";
+  let title = "AI Voice Assistant | Abhisht Chouhan";
   let description =
-    "Interactive speech-to-speech playground with advanced AI voice capabilities and real-time conversation features.";
+    "Interactive speech-to-speech voice assistant, powered by advanced AI, that can understand and respond to your voice commands in real-time. Experience the future of voice interaction with customizable AI personalities.";
 
   const presetId = searchParams?.preset;
   if (presetId) {
@@ -26,7 +21,7 @@ export async function generateMetadata({
     );
     if (selectedPreset) {
       title = `AI Voice Assistant Playground`;
-      description = `Speak to a "${selectedPreset.name}" in an interactive speech-to-speech playground with advanced AI capabilities.`;
+      description = `Speak to a "${selectedPreset.name}" in an interactive speech-to-speech with advanced AI capabilities.`;
     }
   }
 
@@ -37,10 +32,10 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
-      url: "https://ai-voice-assistant-playground.vercel.app/",
+      url: "",
       images: [
         {
-          url: "https://ai-voice-assistant-playground.vercel.app/og-image.png",
+          url: "",
           width: 1200,
           height: 676,
           type: "image/png",
