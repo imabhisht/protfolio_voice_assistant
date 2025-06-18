@@ -3,7 +3,6 @@
 import Orb from "@/components/visualizer/Orb";
 import { useConnection } from "@/hooks/use-connection";
 import { usePlaygroundState } from "@/hooks/use-playground-state";
-import { AuthDialog } from "@/components/auth";
 import { useState, useCallback } from "react";
 
 import {
@@ -24,7 +23,6 @@ export function GeminiVisualizer({
   const agentVolume = useTrackVolume(agentTrackRef);
   const { connect, shouldConnect } = useConnection();
   const { pgState } = usePlaygroundState();
-  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [connecting, setConnecting] = useState(false);
 
   const handleOrbClick = useCallback(async () => {
@@ -33,26 +31,15 @@ export function GeminiVisualizer({
       return;
     }
 
-    if (!pgState.geminiAPIKey) {
-      setShowAuthDialog(true);
-    } else {
-      setConnecting(true);
-      try {
-        await connect();
-      } catch (error) {
-        console.error("Connection failed:", error);
-      } finally {
-        setConnecting(false);
-      }
+    setConnecting(true);
+    try {
+      await connect();
+    } catch (error) {
+      console.error("Connection failed:", error);
+    } finally {
+      setConnecting(false);
     }
-  }, [shouldConnect, agentState, pgState.geminiAPIKey, connect, connecting]);
-
-  const handleAuthComplete = useCallback(() => {
-    setShowAuthDialog(false);
-    if (pgState.geminiAPIKey) {
-      handleOrbClick();
-    }
-  }, [pgState.geminiAPIKey, handleOrbClick]);
+  }, [shouldConnect, agentState, connect, connecting]);
 
   // Allow clicking when not connected and not in an active state
   const isClickable = !shouldConnect && agentState !== "listening" && agentState !== "thinking" && agentState !== "speaking" && !connecting;
@@ -94,12 +81,6 @@ export function GeminiVisualizer({
           />
         </div>
       </div>
-      
-      <AuthDialog
-        open={showAuthDialog}
-        onOpenChange={setShowAuthDialog}
-        onAuthComplete={handleAuthComplete}
-      />
     </div>
   );
 }

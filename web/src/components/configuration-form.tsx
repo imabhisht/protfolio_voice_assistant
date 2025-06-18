@@ -23,11 +23,12 @@ import { RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ModalitiesId } from "@/data/modalities";
 export const ConfigurationFormSchema = z.object({
-  model: z.nativeEnum(ModelId),
-  modalities: z.nativeEnum(ModalitiesId),
   voice: z.nativeEnum(VoiceId),
   temperature: z.number().min(0.6).max(1.2),
-  maxOutputTokens: z.number().nullable(),
+  // Keep these for internal use but don't show in form
+  model: z.nativeEnum(ModelId).optional(),
+  modalities: z.nativeEnum(ModalitiesId).optional(),
+  maxOutputTokens: z.number().nullable().optional(),
 });
 
 export interface ConfigurationFormFieldProps {
@@ -42,7 +43,10 @@ export function ConfigurationForm() {
   const { localParticipant } = useLocalParticipant();
   const form = useForm<z.infer<typeof ConfigurationFormSchema>>({
     resolver: zodResolver(ConfigurationFormSchema),
-    defaultValues: { ...defaultSessionConfig },
+    defaultValues: {
+      voice: defaultSessionConfig.voice,
+      temperature: defaultSessionConfig.temperature,
+    },
     mode: "onChange",
   });
   const formValues = form.watch();
@@ -53,7 +57,6 @@ export function ConfigurationForm() {
   const updateConfig = useCallback(async () => {
     const values = pgState.sessionConfig;
     const attributes: { [key: string]: string } = {
-      gemini_api_key: pgState.geminiAPIKey || "",
       instructions: pgState.instructions,
       voice: values.voice,
       modalities: values.modalities,
@@ -125,22 +128,29 @@ export function ConfigurationForm() {
     }, 500); // Adjust delay as needed
   }, [updateConfig]);
 
-  // Propagate form upates from the user
+  // Propagate form updates from the user
   useEffect(() => {
     if (form.formState.isValid && form.formState.isDirty) {
       dispatch({
         type: "SET_SESSION_CONFIG",
-        payload: formValues,
+        payload: {
+          ...pgState.sessionConfig,
+          voice: formValues.voice,
+          temperature: formValues.temperature,
+        },
       });
     }
-  }, [formValues, dispatch, form]);
+  }, [formValues, dispatch, form, pgState.sessionConfig]);
 
   useEffect(() => {
     if (ConnectionState.Connected === connectionState) {
       handleDebouncedUpdate(); // Call debounced update when form changes
     }
 
-    form.reset(pgState.sessionConfig);
+    form.reset({
+      voice: pgState.sessionConfig.voice,
+      temperature: pgState.sessionConfig.temperature,
+    });
   }, [pgState.sessionConfig, connectionState, handleDebouncedUpdate, form]);
 
   return (

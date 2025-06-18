@@ -5,7 +5,6 @@ import React, {
   useState,
   useCallback,
   useContext,
-  useEffect,
 } from "react";
 import { PlaygroundState } from "@/data/playground-state";
 import { usePlaygroundState } from "./use-playground-state";
@@ -42,9 +41,6 @@ export const ConnectionProvider = ({
   const { pgState } = usePlaygroundState();
 
   const connect = async () => {
-    if (!pgState.geminiAPIKey) {
-      throw new Error("Gemini API key is required to connect");
-    }
     const response = await fetch("/api/token", {
       method: "POST",
       headers: {
@@ -70,13 +66,6 @@ export const ConnectionProvider = ({
   const disconnect = useCallback(async () => {
     setConnectionDetails((prev) => ({ ...prev, shouldConnect: false }));
   }, []);
-
-  // Effect to handle API key changes
-  useEffect(() => {
-    if (pgState.geminiAPIKey === null && connectionDetails.shouldConnect) {
-      disconnect();
-    }
-  }, [pgState.geminiAPIKey, connectionDetails.shouldConnect, disconnect]);
 
   return (
     <ConnectionContext.Provider

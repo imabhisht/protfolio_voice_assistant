@@ -19,14 +19,15 @@ export async function POST(request: Request) {
 
   const {
     instructions,
-    geminiAPIKey,
     sessionConfig: { modalities, voice, temperature, maxOutputTokens },
   } = playgroundState;
 
+  // Use environment variable instead of user-provided API key
+  const geminiAPIKey = process.env.GOOGLE_API_KEY;
   if (!geminiAPIKey) {
     return Response.json(
-      { error: "Gemini API key is required" },
-      { status: 400 }
+      { error: "Gemini API key not configured on server" },
+      { status: 500 }
     );
   }
 

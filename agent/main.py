@@ -113,7 +113,7 @@ class SessionConfig:
 
 def parse_session_config(data: Dict[str, Any]) -> SessionConfig:
     config = SessionConfig(
-        gemini_api_key=data.get("gemini_api_key", ""),
+        gemini_api_key=os.getenv("GOOGLE_API_KEY", ""),
         instructions=data.get("instructions", ""),
         voice=data.get("voice", ""),
         temperature=float(data.get("temperature", 0.8)),
